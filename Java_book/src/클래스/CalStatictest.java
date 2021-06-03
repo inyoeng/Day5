@@ -1,4 +1,4 @@
-package 클래스_2교시_6월1일;
+package 클래스;
 
 public class CalStatictest {
 

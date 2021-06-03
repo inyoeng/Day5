@@ -1,4 +1,4 @@
-package 클래스_2교시_6월1일;
+package 클래스;
 
 /*
  * 1. 클래스 선언
@@ -74,6 +74,20 @@ public class Robot {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	
+	//오버라이딩 -> 객체 받아와서 ->캐스팅(형변환)
+	public boolean equals(Object obj) {
+		Robot r2 = ((Robot)obj);
+		return r2.arm == this.arm && r2.leg == this.leg;
+	}
+
+
+	//477p
+	@Override
+	public String toString() {
+		return "arm: "+arm+" leg: "+leg;
 	}
 	
 	
