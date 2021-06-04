@@ -1,10 +1,12 @@
-package pkg.friend.util;
+package co.memo.access;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-import pkg.other.Friend;
+import co.memo.model.Memo;
+
 
 public class ScannerUtil {
 	static Scanner sc= new Scanner(System.in);
@@ -64,26 +66,21 @@ public class ScannerUtil {
 
 	}// 날짜 넣으라고 하고. 날짜가 아니면
 	
-	public static Friend readFriend() {//Friend 객체 받아와서 한 줄로 넣으면 따로
+	
+	public static Memo readMemo() {//Friend 객체 받아와서 한 줄로 넣으면 따로
+		System.out.println("내용, 날짜 입력");
 		String result = sc.next();
 		String [] arr = result.split(",");
-		Friend friend = new Friend();
-		friend.setGubun(result);
-		  friend.setName(result);
-	      friend.setTab(result);
-
-				
-		return friend;
+		Memo memo = new Memo(arr[0],arr[1]);
+		
+		return memo;
 	}
-	
-
 	
 	 public static void main(String[] args) {
 	      System.out.println();
 	      readInt();
 	      readStr();
 	      readDate();
-	      readFriend();
 	   }
 
 	}
