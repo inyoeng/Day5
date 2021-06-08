@@ -37,7 +37,9 @@ public class MemoCliApp {
 	private void update() {
 		Memo me = new Memo();
 		me.getDate();
+		
 		me.setDate(ScannerUtil.readStr());
+		me.setContent(ScannerUtil.readStr());
 		m.update(me);
 	}
 	
