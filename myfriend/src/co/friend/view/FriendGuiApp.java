@@ -5,16 +5,13 @@ import java.awt.TextArea;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowListener;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import co.friend.access.ActionLister;
-import co.friend.access.FriendList;
+import co.friend.access.FriendDAO;
 import co.friend.model.Friend;
 
 public class FriendGuiApp extends JFrame {
@@ -22,27 +19,28 @@ public class FriendGuiApp extends JFrame {
 	TextField txtName, txtGubun, txtTel;
 	JButton btnInsert, btnUpdate, btnDelete, btnSelectAll, btnFindName;
 	TextArea txtList;
-	FriendList friendList = new FriendList();
-	
-	public FriendGuiApp(){
+	FriendDAO friendList = new FriendDAO();
+
+	public FriendGuiApp() {
 		setTitle("친구관리");
 		setSize(400, 400);
 		init();
 		setVisible(true);
 	}
+
 	public void init() {
 		txtName = new TextField(45);
 		txtGubun = new TextField(45);
 		txtTel = new TextField(45);
-		
+
 		btnInsert = new JButton("등록");
 		btnUpdate = new JButton("수정");
 		btnDelete = new JButton("삭제");
 		btnSelectAll = new JButton("전체조회");
 		btnFindName = new JButton("이름조회");
-		
-		txtList = new TextArea(12,50);
-		
+
+		txtList = new TextArea(12, 50);
+
 		this.getContentPane().setLayout(new FlowLayout());
 		this.getContentPane().add(new JLabel("구분"));
 		this.getContentPane().add(txtGubun);
@@ -56,81 +54,99 @@ public class FriendGuiApp extends JFrame {
 		this.getContentPane().add(btnDelete);
 		this.getContentPane().add(btnSelectAll);
 		this.getContentPane().add(btnFindName);
-		
+
 		this.getContentPane().add(txtList);
-		
-	
-		
-		btnInsert.addActionListener( new ClickHandler());
-		btnUpdate.addActionListener( new UpdateHandler());
-		btnDelete.addActionListener( new ActionListener() {
-		
+
+		btnInsert.addActionListener(new ClickHandler());
+		btnUpdate.addActionListener(new UpdateHandler());
+		btnDelete.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-					delete();
-			}}); //익명객세 delete\
-		btnSelectAll.addActionListener( e -> selectAll()); //람다 표현식
+				delete();
+			}
+		}); // 익명객세 delete\
+		btnSelectAll.addActionListener(e -> selectAll()); // 람다 표현식
 		btnFindName.addActionListener(e -> findName());
-		}
-	
-	
-	class UpdateHandler implements ActionListener{
+	}
+
+	class UpdateHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			update();
-			}
 		}
-	
-	class ClickHandler implements ActionListener{
-		
+	}
+
+	class ClickHandler implements ActionListener {
+
 		public void actionPerformed(ActionEvent e) {
 			insert();
 			Friend friend = new Friend();
 			friend.setGubun(txtGubun.getText());
 			friend.setName(txtName.getText());
-			friend.setTab(txtTel.getText());
+			friend.setTel(txtTel.getText());
 			friendList.insert(friend);
 		}
-		
+
 	}
-	
-	
-	//등록
+
+	// 등록
 	public void insert() {
 		Friend friend = new Friend();
 		friend.setGubun(txtGubun.getText());
 		friend.setName(txtName.getText());
-		friend.setTab(txtTel.getText());
+		friend.setTel(txtTel.getText());
 		friendList.insert(friend);
+
+		txtName.setText("");
+		txtGubun.setText("");
+		txtTel.setText("");
 	}
 
 	// 수정
 	public void update() {
 		Friend friend = new Friend();
 		friend.setName(txtName.getText());
-		friend.setTab(txtTel.getText());
+		friend.setTel(txtTel.getText());
 		friendList.update(friend);
+		List<Friend> list = friendList.selectAll();
+		StringBuffer sb = new StringBuffer();
+		for (Friend f : list) {
+			sb.append(f);
+			sb.append("\n");
+		}
+		txtList.setText(sb.toString());
 	}
 
 	// 삭제
 	public void delete() {
-		String name = txtTel.getText();
+		String name = txtName.getText();
 		friendList.delete(name);
+		
 	}
 
 	// 이름검색
 	public void findName() {
-		String name = txtTel.getText();
+		String name = txtName.getText();
 		Friend friend = friendList.SelectOne(name);
 		txtGubun.setText(friend.getGubun());
-		txtTel.setText(friend.getTab());
+		txtTel.setText(friend.getTel());
 		txtName.setText(friend.getName());
+		
+		txtName.setText("");
+		txtGubun.setText("");
+		txtTel.setText("");
+		///==========================
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append(friend);
+		txtList.setText(sb.toString());
 	}
 
 	// 전체조회
 	public void selectAll() {
 		List<Friend> list = friendList.selectAll();
 		StringBuffer sb = new StringBuffer();
-		for(Friend friend : list) {
+		for (Friend friend : list) {
 			sb.append(friend);
 			sb.append("\n");
 		}

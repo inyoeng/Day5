@@ -58,7 +58,7 @@ public class FriendList implements FriendAccess{
 	public void update(Friend friend) {
 		for(Friend f : friends) {
 			if(f.getName().equals(f.getName())) {
-				f.setTab(friend.getTab());
+				f.setTel(friend.getTel());
 			}
 		}
 		save();
@@ -90,14 +90,16 @@ public class FriendList implements FriendAccess{
 	}
 
 	@Override
-	public Friend findTab(String tab) {
+	public Friend findTel(String tel) {
 		for(Friend f : friends) {
-			if(f.getTab().contains(tab)) {
+			if(f.getTel().contains(tel)) {
 				return f;
 			}
 		}
 		return null;
 	}
+
+
 	
 	
 

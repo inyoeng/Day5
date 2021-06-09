@@ -15,6 +15,9 @@ public interface FriendAccess {
 	//String model; (x) 인스턴스, 정적필드 안대!
 	//final String model= "";(o) 상수 필드는 초기값과 함께 가능!
 	
+	
+	//선언만 되어있는 추상 메서드들.  {}없음.
+	
 	// 등록
 	public void insert(Friend Friend);
 	
@@ -30,6 +33,6 @@ public interface FriendAccess {
 	//단건조회
 	public Friend SelectOne(String name);
 	
-	public Friend findTab(String tab);
+	public Friend findTel(String tel);
 	
 }

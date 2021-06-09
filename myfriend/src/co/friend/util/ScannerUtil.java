@@ -88,7 +88,7 @@ public class ScannerUtil {
 		//or Friend friend = new Friend(arr[0], arr[1], arr[2]); or (arr)
 		friend.setGubun(arr[0]);
 		friend.setName(arr[1]);
-		friend.setTab(arr[2]);
+		friend.setTel(arr[2]);
 		return friend;
 		}
 		
