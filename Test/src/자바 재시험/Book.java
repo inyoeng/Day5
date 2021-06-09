@@ -1,25 +1,17 @@
-package exam5;
+
 
 public class Book {
-	//테이블의 구조와 동일하게 해야..
-	String isbn;
-	String name;
-	String content;
+	protected String isbn;
+	protected String name;
+	protected String content;
 	
-	public Book() {}
-	
+	public Book() {	}
 	public Book(String isbn, String name, String content) {
 		super();
 		this.isbn = isbn;
 		this.name = name;
 		this.content = content;
 	}
-
-	@Override
-	public String toString() {
-		return "Book [isbn=" + isbn + ", name=" + name + ", content=" + content + "]";
-	}
-	
 	
 	public String getIsbn() {
 		return isbn;
@@ -39,4 +31,9 @@ public class Book {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	@Override
+	public String toString() {
+		return String.format("%20s %20s %20s", isbn, name, content);
+	}
+	
 }
