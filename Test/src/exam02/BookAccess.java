@@ -8,5 +8,8 @@ public  abstract class BookAccess {
 	public abstract void insert(Book book);	
 	//이름으로조회
 	public abstract List<Book> findName(String name);
+	
+	//+isbn 단건 조회
+	public abstract Book findIsbn(String isbn);
 		
 }

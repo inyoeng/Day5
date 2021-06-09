@@ -1,4 +1,4 @@
-
+package exam02;
 
 public class Book {
 	protected String isbn;

@@ -12,7 +12,7 @@ public class BookApp {
 		int menu =0;
 		Scanner scanner = new Scanner(System.in);
 		do {
-			System.out.println("1.등록   2.내용조회    0.종료");
+			System.out.println("1.등록   2.내용조회  3. isbn검색   0.종료");
 			System.out.print("입력>");
 			menu = scanner.nextInt();
 			if(menu ==1) {
@@ -21,7 +21,10 @@ public class BookApp {
 			}else if (menu == 2) {
 				BookServiceFind service = new BookServiceFind();
 				service.execute(books);
-			}	
+			}else if(menu == 3) {
+				BookServiceFindIsbn service = new BookServiceFindIsbn();
+				service.execute(books);
+			}
 		}while(menu !=0);
 	}
 

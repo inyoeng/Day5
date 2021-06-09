@@ -23,4 +23,16 @@ public class BookList extends BookAccess  {
 		return list; 
 	}
 
+	@Override
+	public Book findIsbn(String isbn) {
+		Book book = null ;
+		for (Book b : books) {
+			if(b.getIsbn().contains(isbn)) {
+				book = b;
+				break;
+			}
+		}
+		return book;
+	}
+
 }
