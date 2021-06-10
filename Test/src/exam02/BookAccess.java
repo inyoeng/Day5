@@ -11,5 +11,8 @@ public  abstract class BookAccess {
 	
 	//+isbn 단건 조회
 	public abstract Book findIsbn(String isbn);
+	
+	//전체출력
+	public abstract Book findall();
 		
 }

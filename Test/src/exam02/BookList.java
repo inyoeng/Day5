@@ -35,4 +35,10 @@ public class BookList extends BookAccess  {
 		return book;
 	}
 
+	@Override
+	public Book findall() {
+		
+		return null;
+	}
+
 }
