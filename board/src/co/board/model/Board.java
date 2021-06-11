@@ -5,7 +5,7 @@ public class Board {
 	String b_title;
 	String b_content;
 	String b_writer;
-	String b_parent_id;
+	int b_parent_id;
 	
 	public String showinfo() {
 		return "Board [b_id=" + b_id + ", b_title=" + b_title + ", b_writer=" + b_writer
@@ -41,10 +41,10 @@ public class Board {
 		this.b_writer = b_writer;
 	}
 	
-	public String getB_parent_id() {
+	public int getB_parent_id() {
 		return b_parent_id;
 	}
-	public void setB_parent_id(String b_parent_id) {
+	public void setB_parent_id(int b_parent_id) {
 		this.b_parent_id = b_parent_id;
 	}
 	

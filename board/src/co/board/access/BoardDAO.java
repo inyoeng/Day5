@@ -194,39 +194,62 @@ public class BoardDAO extends DAO implements BoardAccess {
 	@Override
 	public void reply(Board board) {
 		connect();
-	
-		System.out.println("1. 덧글 입력  2. 이전메뉴");
-		
-		Scanner sc = new Scanner(System.in);
 
-		while (true) {
-			int num = sc.nextInt();
-			if (num == 1) {
-				String sql = "insert into board values(?,?,?,?,?)";
-				System.out.println("번호, 제목, 내용, 작성자를 입력하세요.");
-				try {
-					psmt = conn.prepareStatement(sql);
-					psmt.setInt(1, board.getB_id());
-					psmt.setString(2, board.getB_title());
-					psmt.setString(3, board.getB_content());
-					psmt.setString(4, board.getB_writer());
-					psmt.setString(5, board.getB_parent_id());
-					int r = psmt.executeUpdate();
-					System.out.println(r + "건 입력되었습니다.");
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-						
-				break;
-			} else if (num == 2) {
-				
-				break;
-			} else {
-				System.out.println("잘못된 번호를 입력하셨습니다.");
-				continue;
-			}
+		String sql = "insert into board (b_title, b_content,b_writer,b_parent_id)  values(?,?,?,?)";
+		System.out.println("댓글 내용입력하세요.");
+		try {
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, "comment");
+			psmt.setString(2, board.getB_content());
+			psmt.setString(3, board.getB_writer());
+			psmt.setInt(4, board.getB_parent_id());
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 입력되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
+	}
+	
+	public ArrayList<Board> serachReply(int b_parent_id) {
+		connect();
+		ArrayList<Board> list1 = new ArrayList<>();
+		Board b = null;
+		String sql = "select * from board where b_parent_id = ?";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, b_parent_id);
+			rs = psmt.executeQuery();
+			
+			if (rs.next()) {
+				while(rs.next()) {
+				b = new Board();
+				b.setB_id(rs.getInt("b_id"));
+				b.setB_title(rs.getString("b_title"));
+				b.setB_content(rs.getString("b_content"));
+				b.setB_writer(rs.getString("b_writer"));
+				list1.add(b);
+				}
+			} else {
+				System.out.println("없는 번호입니다. ");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list1;
+	}
+
+
+
+	@Override
+	public boolean logIn(String id) {
+		System.out.println("로그인 성공!");
+		return true;
 	}
 
 }

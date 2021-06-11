@@ -26,6 +26,9 @@ public interface BoardAccess {
 	public void reply(Board board);
 	// 한건 조회하고 덧글(add?)
 
-	public static void logIn(String b_parent_id) {//아이디, 비밀번호 입력 ,, 자기가 작성한 글만 수정, 삭제 가능.
-	}
+	public boolean logIn(String id); //아이디, 비밀번호 입력 ,, 자기가 작성한 글만 수정, 삭제 가능.
+	
+
+	public ArrayList<Board> serachReply(int b_parent_id);
+
 }
