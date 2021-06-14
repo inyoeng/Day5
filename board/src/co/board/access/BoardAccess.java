@@ -21,6 +21,7 @@ public interface BoardAccess {
 	public Board serach(int b_id);
 	// 글 번호, 제목, 작성자, 내용
 
+	public ArrayList<Board> Contains(Board board);
 
 
 	public void reply(Board board);

@@ -12,6 +12,7 @@ import 로그인.MemberAccess;
 import 로그인.MemberDAO;
 
 public class BoardApp {
+	private static final Board Board = null;
 	BoardAccess ba = new BoardDAO(); // 글 작성용
 	MemberAccess ma = new MemberDAO(); // 로그인용
 	Scanner sc = new Scanner(System.in);
@@ -49,10 +50,19 @@ public class BoardApp {
 			case 8:
 				logIn();
 				break;
+			case 9:
+				Contains();
+				break;
 
 			}
 		} while (num != 0);
 
+	}
+
+	private void Contains() {
+	
+		ArrayList<Board> b = ba.Contains(Board );
+		System.out.println(b);
 	}
 
 	public boolean logIn() {

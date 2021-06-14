@@ -12,6 +12,7 @@ import java.util.Set;
 
 import co.friend.model.Friend;
 import co.friend.util.DAO;
+import co.memo.access.ScannerUtil;
 
 //friendAccess,->구현: friendList도 여기 있고
 //
@@ -153,5 +154,8 @@ public class FriendDAO extends DAO implements FriendAccess {
 
 		return friend;
 	}
+
+
+	
 
 }

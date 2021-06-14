@@ -1,12 +1,12 @@
 package co.board.access;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import co.board.model.Board;
 
@@ -199,7 +199,7 @@ public class BoardDAO extends DAO implements BoardAccess {
 		System.out.println("댓글 내용입력하세요.");
 		try {
 			psmt = conn.prepareStatement(sql);
-			
+
 			psmt.setString(1, "comment");
 			psmt.setString(2, board.getB_content());
 			psmt.setString(3, board.getB_writer());
@@ -211,7 +211,7 @@ public class BoardDAO extends DAO implements BoardAccess {
 		}
 
 	}
-	
+
 	public ArrayList<Board> serachReply(int b_parent_id) {
 		connect();
 		ArrayList<Board> list1 = new ArrayList<>();
@@ -222,15 +222,15 @@ public class BoardDAO extends DAO implements BoardAccess {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, b_parent_id);
 			rs = psmt.executeQuery();
-			
+
 			if (rs.next()) {
-				while(rs.next()) {
-				b = new Board();
-				b.setB_id(rs.getInt("b_id"));
-				b.setB_title(rs.getString("b_title"));
-				b.setB_content(rs.getString("b_content"));
-				b.setB_writer(rs.getString("b_writer"));
-				list1.add(b);
+				while (rs.next()) {
+					b = new Board();
+					b.setB_id(rs.getInt("b_id"));
+					b.setB_title(rs.getString("b_title"));
+					b.setB_content(rs.getString("b_content"));
+					b.setB_writer(rs.getString("b_writer"));
+					list1.add(b);
 				}
 			} else {
 				System.out.println("없는 번호입니다. ");
@@ -244,12 +244,35 @@ public class BoardDAO extends DAO implements BoardAccess {
 		return list1;
 	}
 
-
-
 	@Override
 	public boolean logIn(String id) {
 		System.out.println("로그인 성공!");
 		return true;
 	}
 
+	@Override
+	public ArrayList<Board> Contains(Board board) {
+		connect();
+		ArrayList<Board> list = new ArrayList<>();
+		String word = ScannerUtil.readStr();
+		try {
+			psmt = conn.prepareStatement("select * from Board where b_title  like ? ");
+			psmt.setString(1, '%'+word+'%');
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				Board b = new Board();
+
+				b.setB_id(rs.getInt("b_id"));
+				b.setB_title(rs.getString("b_title"));
+				b.setB_content(rs.getString("b_content"));
+				b.setB_writer(rs.getString("b_writer"));
+				list.add(b);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
 }

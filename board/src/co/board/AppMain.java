@@ -7,10 +7,10 @@ public class AppMain {
 	public static void main(String[] args) {
 		BoardApp app = new BoardApp();
 		
-		if(app.logIn()== true) {
+		//if(app.logIn()== true) {
 			
 			app.start();
-		}
+		//}
 	}
 
 }
