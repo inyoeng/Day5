@@ -5,12 +5,12 @@ public class Pilates {
 	//멤버돤리
 	
 	
-	String id;
-	String pw;
-	String name;
-	int age;
-	String phone;
-	int session;
+	static String id;
+	static String pw;
+	static String name;
+	static int age;
+	static String phone;
+	static int session;
 
 	
 
@@ -28,13 +28,13 @@ public class Pilates {
 	
 	
 
-	public String getId() {
+	public static String getId() {
 		return id;
 	}
 
 
 	public void setId(String id) {
-		this.id = id;
+		Pilates.id = id;
 	}
 
 
@@ -44,17 +44,17 @@ public class Pilates {
 
 
 	public void setPw(String pw) {
-		this.pw = pw;
+		Pilates.pw = pw;
 	}
 
 
-	public String getName() {
+	public static String getName() {
 		return name;
 	}
 
 
 	public void setName(String name) {
-		this.name = name;
+		Pilates.name = name;
 	}
 
 
@@ -64,7 +64,7 @@ public class Pilates {
 
 
 	public void setAge(int age) {
-		this.age = age;
+		Pilates.age = age;
 	}
 
 
@@ -74,17 +74,17 @@ public class Pilates {
 
 
 	public void setPhone(String phone) {
-		this.phone = phone;
+		Pilates.phone = phone;
 	}
 
 
-	public int getSession() {
+	public static int getSession() {
 		return session;
 	}
 
 
 	public void setSession(int session) {
-		this.session = session;
+		Pilates.session = session;
 	}
 
 

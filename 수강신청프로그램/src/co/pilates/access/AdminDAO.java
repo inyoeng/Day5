@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import co.pilates.model.Course;
 import co.pilates.model.Pilates;
+import co.pilates.model.Teacher;
 
 public class AdminDAO extends DAO implements AccessAdmin{
 	
@@ -21,7 +22,7 @@ public class AdminDAO extends DAO implements AccessAdmin{
 		String url = "jdbc:sqlite:C:/sqlite/db/pilates.db";
 		try {
 			conn = DriverManager.getConnection(url);
-			System.out.println("연결성공!!");
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -101,6 +102,36 @@ public class AdminDAO extends DAO implements AccessAdmin{
 
 	@Override
 	public void enterCourse(Course course) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ArrayList<Teacher> teacherList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void seachTeacher(Teacher teacher) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void inputTeacher(Teacher teacher) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void editTeacher(Teacher teacher) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteTeacher(String name) {
 		// TODO Auto-generated method stub
 		
 	}

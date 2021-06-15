@@ -1,30 +1,30 @@
 package co.pilates.view;
 
 import java.util.List;
+import java.util.Scanner;
 
 import co.pilates.access.AccessMember;
 import co.pilates.access.MemberDAO;
 import co.pilates.access.ScannerUtil;
 import co.pilates.model.Course;
 import co.pilates.model.Pilates;
+import co.pilates.model.Teacher;
 
 public class PilatesCliApp {
-	
+
+	Scanner sc = new Scanner(System.in);
+
 	public Pilates pilates;
-	
-	public PilatesCliApp() {
-		
-	}
-	
-	public PilatesCliApp(Pilates pilates){
+
+	public PilatesCliApp(Pilates pilates) {
 		this.pilates = pilates;
+		System.out.println(pilates);
 	}
-	
-	
+
 	AccessMember mem = new MemberDAO(); // 회원용 메뉴
+	int num = 0;
 
 	public void start() {
-		int num;
 
 		do {
 			// print menu
@@ -61,83 +61,120 @@ public class PilatesCliApp {
 				break;
 			}
 		} while (num != 0);
-
+		System.out.println("The End");
 	}
-	
+
 	private void history() {
-		// TODO Auto-generated method stub
+
+		System.out.println("----------  수강신청 내역  ----------");
+		List<Course> list = mem.history();
+		for (Course c : list) {
+			System.out.println(c.toString());
+		}
 
 	}
 
 	private void update() {
 		// 스캐너 받아서 1. 나이 수정 2. 번호 수정 3. 비밀번호 수정
 		System.out.println("1. 나이 수정 2. 번호수정 3. 비밀번호 수정");
+
+//		String name = pilates.getName();
+//		System.out.println(name);
+
 		int num = ScannerUtil.readInt();
 		while (true) {
 			if (num == 1) {
 				// 나이수정
-				
-				Pilates p  =new Pilates();
-				int newAge = ScannerUtil.readInt();
-				p.setAge(newAge);
-				mem.updateAge(p);
+				int newAge = sc.nextInt();
+				pilates.setAge(newAge);
+				MemberDAO.updateAge(pilates);
 				break;
 			} else if (num == 2) {
 				// 번호수정
+
 				break;
 			} else if (num == 3) {
 				// 비밀번호 수정
+
 				break;
 			} else {
 				System.out.println("다시 입력하세요!!");
 				continue;
 			}
 		}
-	
+
 	}
 
 	private void teacherInfo() {
-		// TODO Auto-generated method stub
-
+		List<Teacher> list = mem.teacherInfo();
+		for (Teacher c : list) {
+			System.out.println(c.toString());
+		}
 	}
 
 	private void searchAll() {
 		List<Course> list = mem.searchAll();
-		for(Course c : list) {
+		for (Course c : list) {
 			System.out.println(c.toString());
 		}
 	}
 
 	private void searchLevel() {
-		String level = ScannerUtil.readStr();
+		System.out.println("레벨을 입력하세요");
+		String level = sc.next();
 		List<Course> list = mem.searchLevel(level);
-		for(Course c : list) {
+		for (Course c : list) {
 			System.out.println(c.toString());
 		}
 	}
 
 	private void searchDate() {
-		String date = ScannerUtil.readStr();
-		List<Course> list = mem.searchLevel(date);
-		for(Course c : list) {
+		System.out.println("yy-mm-dd");
+		String date = sc.next();
+		List<Course> list = mem.SearchDate(date);
+		for (Course c : list) {
 			System.out.println(c.toString());
 		}
 	}
 
 	private void searchTeacher() {
-		String teacher = ScannerUtil.readStr();
-		List<Course> list = mem.searchLevel(teacher);
-		System.out.println(list);
-
+		System.out.println("선생님 이름을 입력하세요");
+		String teacher = sc.next();
+		List<Course> list = mem.searchTeacher(teacher);
+		for (Course c : list) {
+			System.out.println(c.toString());
+		}
 	}
 
 	private void enroll() {
-		// TODO Auto-generated method stub
+		System.out.println("-----------------------------");
+		System.out.println("수강신청 할 강의의 번호를 입력하세요!");
+		System.out.println("-----------------------------");
+		int no = sc.nextInt();
+		// 강좌 불러와서 확인시키기
+
+		System.out.println("수강신청 하시겠습니까?");
+		System.out.println("= 1. Yes  2. No =");
+		int num = sc.nextInt();
+
+		if (num == 1) {
+
+			mem.enroll(no);
+
+		} else {
+			System.out.println("수강신청 취소...");
+		}
 
 	}
 
 	private void logOut() {
-		// TODO Auto-generated method stub
+		mem.logout();
+		System.out.println("종료하시겠습니까? >> y/n");
+		String a = sc.next();
+		if (a.equals("y")) {
+			//System.exit(0);
+			num = 0;
+		}
 
 	}
 

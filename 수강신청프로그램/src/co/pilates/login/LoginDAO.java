@@ -16,26 +16,25 @@ public class LoginDAO extends DAO implements LoginAccess {
 	static Connection conn;
 
 	boolean result = true;
-	
+
 	public static void connect() {
 		String url = "jdbc:sqlite:C:/sqlite/db/pilates.db";
 		try {
 			conn = DriverManager.getConnection(url);
-			System.out.println("연결성공!!");
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
-	
-	
+
 	public void loginChk() {
-		if(checkID(sql) == true) {
-			
+		if (checkID(sql) == true) {
+
 		}
 	}
-	
+
 	@Override
 	public boolean checkID(String id) {
 		connect();
@@ -46,15 +45,17 @@ public class LoginDAO extends DAO implements LoginAccess {
 			rs = psmt.executeQuery();
 			if (rs.next()) {
 				result = true;
-			
-			}else {
+
+			} else {
 				result = false;
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
-		return result; 
+		return result;
 	}
 
 	@Override
@@ -67,15 +68,44 @@ public class LoginDAO extends DAO implements LoginAccess {
 			rs = psmt.executeQuery();
 			if (rs.next()) {
 				result = true;
-				
-			}else {
+
+			} else {
 				result = false;
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
-		return result; 
+		} finally {
+			close();
+		}
+		return result;
 	}
 
+	public static void close() { // connect한 후에는 꼭 close 해 줘야 함.
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if (psmt != null) {
+			try {
+				psmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if (conn != null) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+	}
 }

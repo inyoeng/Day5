@@ -12,8 +12,7 @@ public interface AccessMember {
 	
 	
 	//정보 업데이트
-	public void update(Pilates pilates);
-	public void updateAge(Pilates pilates);
+	
 	public void updatePhone(Pilates pilates);
 	
 	//search and show
@@ -23,12 +22,13 @@ public interface AccessMember {
 	public ArrayList<Course> searchTeacher(String teacher);
 	
 	//선생님 정보 검색
-	public void teacherInfo(Teacher teacher);
+	public ArrayList<Teacher> teacherInfo();
 	
 	//수강신청 : course db student에 이름 추가하기.
-	public void enroll(Course course);
+	public void enroll(int no);
 	
 	//수강신청 내역 조회
-	public ArrayList<Course> history(Course course);
+	public ArrayList<Course> history();
+
 	
 }

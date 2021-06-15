@@ -1,13 +1,17 @@
 package co.pilates.view;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import co.pilates.access.AccessAdmin;
 import co.pilates.access.AdminDAO;
-import co.pilates.access.ScannerUtil;
+import co.pilates.model.Pilates;
 
 public class AdminCliApp {
 
 	AccessAdmin adm = new AdminDAO(); // 관리자용 메뉴
-
+	Scanner sc = new Scanner(System.in);
+	
 	public void start() {
 		int num;
 
@@ -15,7 +19,8 @@ public class AdminCliApp {
 			// print menu
 			menuTitle();
 			// select menu
-			num = ScannerUtil.readInt();
+			num = sc.nextInt();
+			
 			switch (num) {
 			case 1:
 				memberList();
@@ -78,13 +83,20 @@ public class AdminCliApp {
 	}
 
 	private void memberList() {
-		// TODO Auto-generated method stub
-
+		ArrayList<Pilates> list = adm.memberList();
+		for(Pilates p :list) {
+			System.out.println(p);
+		}
+		
 	}
 
 	private void menuTitle() {
-		// TODO Auto-generated method stub
-
+		System.out.println("========================================");
+		System.out.println("= 1) 전체 회원 검색  2) 조건으로 회원 검색하기 =");
+		System.out.println("= 3) 회원 등록      4) 회원 수강권 변경하기  =");
+		System.out.println("= 5) 회원 삭제      6) 강사 목록 조회       =");
+		System.out.println("=           7) 강의 등록하기              =");
+		System.out.println("========================================");
 	}
 
 }
