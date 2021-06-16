@@ -19,7 +19,7 @@ public class AppMain {
 		AccessMember am = new MemberDAO();
 		AdminCliApp ad = new AdminCliApp();
 
-		// 1. 관리자로 로그인할래s? y/n
+		// 1. 관리자로 로그인할래? y/n
 		System.out.println("----로그인 하시겠습니까?----");
 		System.out.println("1.관리자 모드 2. 회원 로그인");
 		System.out.println("------------------------");

@@ -8,7 +8,7 @@ public class Course {
 	String level;
 	String date;
 	String teacher;
-	String students;
+	
 	
 	
 	
@@ -17,18 +17,10 @@ public class Course {
 	@Override
 	public String toString() {
 		return "Course [course=" + course + ", level=" + level + ", date=" + date + ", teacher=" + teacher
-				+ ", students=" + students + "]";
+				+  "]";
 	}
 
 
-	public String getStudents() {
-		return students;
-	}
-
-
-	public void setStudents(String students) {
-		this.students = students;
-	}
 
 
 	public String getCourse() {

@@ -78,7 +78,7 @@ public class AdminCliApp {
 	private void searchTeacher() {
 		System.out.println("찾을 이름을 입력하세요 >>");
 		String name = sc.next();
-		adm.seachTeacher(name);
+		System.out.println(adm.seachTeacher(name));
 	}
 
 
@@ -174,14 +174,23 @@ public class AdminCliApp {
 	}
 
 	private void nameContains() {
-		ArrayList<Pilates> p = adm.nameContains(Pilates);
-		System.out.println(p);
+		System.out.println("찾을 이름을 입력하세요");
+		String word = sc.next();
+		
+		ArrayList<Pilates> list = adm.nameContains(word);
+		for (Pilates p : list) {
+			System.out.println(p.toString());
+		}
 	}
 
 	private void searchName() {
+		//동명이인이 있을 수 있으니까~~
 		System.out.println("찾을 이름을 입력하세요 >>");
 		String name = sc.next();
-		adm.searchName(name);
+		ArrayList<Pilates> list = adm.searchName(name);
+		for (Pilates p : list) {
+			System.out.println(p.toString());
+		}
 	}
 
 	private void enter() {
@@ -193,7 +202,7 @@ public class AdminCliApp {
 	private void memberList() {
 		ArrayList<Pilates> list = adm.memberList();
 		for(Pilates p :list) {
-			System.out.println(p);
+			System.out.println(p.toString());
 		}
 		
 	}

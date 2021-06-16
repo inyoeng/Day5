@@ -65,8 +65,9 @@ public class AdminDAO extends DAO implements AccessAdmin {
 		connect();
 		ArrayList<Pilates> list = new ArrayList<>();
 
+		String sql = "select * from members";
 		try {
-			psmt = conn.prepareStatement("select * from members");
+			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
 				Pilates p = new Pilates();
@@ -98,7 +99,7 @@ public class AdminDAO extends DAO implements AccessAdmin {
 			psmt.setString(3, Pilates.getName());
 			psmt.setInt(4, pilates.getAge());
 			psmt.setString(5, pilates.getPhone());
-			psmt.setInt(1, Pilates.getSession());
+			psmt.setInt(6, Pilates.getSession());
 			int r = psmt.executeUpdate();
 			System.out.println(r + "건 입력되었습니다. ");
 		} catch (SQLException e) {
@@ -110,15 +111,12 @@ public class AdminDAO extends DAO implements AccessAdmin {
 	}
 
 	@Override
-	public ArrayList<Pilates> nameContains(Pilates pilates) {
+	public ArrayList<Pilates> nameContains(String word) {
 		connect();
 		ArrayList<Pilates> list = new ArrayList<>();
-		System.out.println("찾을 이름을 입력하세요");
-		String word = sc.next();
-		
 
 		try {
-			psmt = conn.prepareStatement("select * from memebers where name like ?");
+			psmt = conn.prepareStatement("select * from members where name like ?");
 			psmt.setString(1, '%' + word + '%');
 			rs = psmt.executeQuery();
 			while (rs.next()) {
@@ -132,7 +130,6 @@ public class AdminDAO extends DAO implements AccessAdmin {
 				list.add(p);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close();
@@ -142,8 +139,9 @@ public class AdminDAO extends DAO implements AccessAdmin {
 	}
 
 	@Override
-	public Pilates searchName(String name) {
+	public ArrayList<Pilates> searchName(String name) {
 		connect();
+		ArrayList<Pilates> list = new ArrayList<>();
 		String sql = "select * from members where name = ?";
 		Pilates p = null;
 
@@ -160,21 +158,21 @@ public class AdminDAO extends DAO implements AccessAdmin {
 				p.setAge(rs.getInt("age"));
 				p.setPhone(rs.getString("phone"));
 				p.setSession(rs.getInt("sessions"));
-
+				list.add(p);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close();
 		}
-		return p;
+		return list;
 	}
 
 	@Override
 	public void updateSession(Pilates pilates) {
 		connect();
 		String sql = "update members set sessions = ? where id = ?";
-		
+
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, Pilates.getSession());
@@ -187,14 +185,14 @@ public class AdminDAO extends DAO implements AccessAdmin {
 		} finally {
 			close();
 		}
-		
+
 	}
 
 	@Override
 	public void delete(String name) {
 		connect();
 		String sql = "delete from members where name = ?";
-		
+
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, name);
@@ -203,7 +201,7 @@ public class AdminDAO extends DAO implements AccessAdmin {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close();
 		}
 	}
@@ -212,14 +210,14 @@ public class AdminDAO extends DAO implements AccessAdmin {
 	public ArrayList<Course> courseList() {
 		ArrayList<Course> list = new ArrayList<>();
 		connect();
-		
+
 		String sql = "select * from course";
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			
-			while(rs.next()) {
-				Course c =  new Course();
+
+			while (rs.next()) {
+				Course c = new Course();
 				c.setCourse(rs.getString("course"));
 				c.setLevel(rs.getString("level"));
 				c.setTeacher(rs.getString("teacher"));
@@ -229,11 +227,10 @@ public class AdminDAO extends DAO implements AccessAdmin {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close();
 		}
-		
-		
+
 		return list;
 	}
 
@@ -241,34 +238,34 @@ public class AdminDAO extends DAO implements AccessAdmin {
 	public void enterCourse(Course course) {
 		connect();
 		String sql = "insert into course values (?,?,?,?)";
-		
+
 		try {
 			psmt = conn.prepareStatement(sql);
+
 			psmt.setString(1, course.getCourse());
 			psmt.setString(2, course.getLevel());
 			psmt.setString(3, course.getDate());
 			psmt.setString(4, course.getTeacher());
 			int r = psmt.executeUpdate();
 			System.out.println(r + "건 입력되었습니다.");
-			
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close();
 		}
-		
+
 	}
 
 	@Override
 	public ArrayList<Teacher> teacherList() {
 		ArrayList<Teacher> list = new ArrayList<>();
 		connect();
-		
+
 		try {
 			psmt = conn.prepareStatement("select * from Teacher");
 			rs = psmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				Teacher t = new Teacher();
 				t.setName(rs.getString("name"));
 				t.setAge(rs.getInt("age"));
@@ -280,10 +277,10 @@ public class AdminDAO extends DAO implements AccessAdmin {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close();
 		}
-		
+
 		return list;
 	}
 
@@ -299,7 +296,7 @@ public class AdminDAO extends DAO implements AccessAdmin {
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
-				t= new Teacher();
+				t = new Teacher();
 				t.setName(rs.getString("name"));
 				t.setAge(rs.getInt("age"));
 				t.setExperience(rs.getString("experience"));
@@ -319,7 +316,7 @@ public class AdminDAO extends DAO implements AccessAdmin {
 	public void inputTeacher(Teacher teacher) {
 		connect();
 		String sql = "insert into teacher values (?,?,?,?,?)";
-		
+
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, teacher.getName());
@@ -329,22 +326,20 @@ public class AdminDAO extends DAO implements AccessAdmin {
 			psmt.setString(5, teacher.getPhone());
 			int r = psmt.executeUpdate();
 			System.out.println(r + "건 입력되었습니다.");
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close();
 		}
 	}
-
-	
 
 	@Override
 	public void deleteTeacher(String name) {
 		connect();
 		String sql = "delete from teacher where name =?";
-		
+
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, name);
@@ -353,28 +348,27 @@ public class AdminDAO extends DAO implements AccessAdmin {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close();
 		}
-		
-	}
-	
-	public void deleteCourse(String name) {
-		connect();
-		String sql = "delete from course where name =?";
-		
-		try {
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, name);
-			int r = psmt.executeUpdate();
-			System.out.println(r + "건 삭제되었습니다.");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			close();
-		}
-		
+
 	}
 
+	public void deleteCourse(String name) {
+		connect();
+		String sql = "delete from course where course =?";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, name);
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 삭제되었습니다.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+
+	}
 }

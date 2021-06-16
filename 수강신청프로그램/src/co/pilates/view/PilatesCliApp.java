@@ -91,11 +91,15 @@ public class PilatesCliApp {
 				break;
 			} else if (num == 2) {
 				// 번호수정
-
+				System.out.println("바꿀 번호를 입력하세요!");
+				String phone = sc.next();
+				mem.updatePhone(phone);
 				break;
 			} else if (num == 3) {
 				// 비밀번호 수정
-
+				System.out.println("바꿀 비밀번호를 입력하세요!");
+				String pw = sc.next();
+				mem.updatePw(pw);
 				break;
 			} else {
 				System.out.println("다시 입력하세요!!");

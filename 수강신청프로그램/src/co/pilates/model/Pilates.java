@@ -1,100 +1,73 @@
 package co.pilates.model;
 
 public class Pilates {
-	
-	//멤버돤리
-	
-	
-	static String id;
-	static String pw;
-	static String name;
-	static int age;
-	static String phone;
-	static int session;
 
-	
+	// 멤버돤리
 
-	
-	
-
-
+	String id;
+	String pw;
+	String name;
+	int age;
+	String phone;
+	int session;
 
 	@Override
 	public String toString() {
 		return "Pilates [id=" + id + ", pw=" + pw + ", name=" + name + ", age=" + age + ", phone=" + phone
 				+ ", session=" + session + "]";
 	}
-	
-	
-	
 
-	public static String getId() {
+	public String getId() {
 		return id;
 	}
 
-
 	public void setId(String id) {
-		Pilates.id = id;
+		this.id = id;
 	}
-
 
 	public String getPw() {
 		return pw;
 	}
 
-
 	public void setPw(String pw) {
-		Pilates.pw = pw;
+		this.pw = pw;
 	}
 
-
-	public static String getName() {
+	public  String getName() {
 		return name;
 	}
 
-
 	public void setName(String name) {
-		Pilates.name = name;
+		this.name = name;
 	}
-
 
 	public int getAge() {
 		return age;
 	}
 
-
 	public void setAge(int age) {
-		Pilates.age = age;
+		this.age = age;
 	}
-
 
 	public String getPhone() {
 		return phone;
 	}
 
-
 	public void setPhone(String phone) {
-		Pilates.phone = phone;
+		this.phone = phone;
 	}
 
-
-	public static int getSession() {
+	public  int getSession() {
 		return session;
 	}
 
-
 	public void setSession(int session) {
-		Pilates.session = session;
+		this.session = session;
 	}
-
-
-
 
 	public String getPassword() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 
 }

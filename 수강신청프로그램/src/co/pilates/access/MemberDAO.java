@@ -298,10 +298,12 @@ public class MemberDAO extends DAO implements AccessMember {
 	@Override
 	public ArrayList<Course> history() {
 		connect();
-
+		
+		//아이디 받아옴~!!
 		String id = Pilates.getId();
-		System.out.println(id);
-		String sql = "select * from course c join enroll e on e.no = c.no where students =?";
+		//System.out.println(id);
+
+		String sql = "select * from course c join enroll e on e.no = c.no where id =?";
 
 		ArrayList<Course> list = new ArrayList<>();
 
@@ -316,7 +318,6 @@ public class MemberDAO extends DAO implements AccessMember {
 				co.setLevel(rs.getString("level"));
 				co.setDate(rs.getString("date"));
 				co.setTeacher(rs.getString("teacher"));
-				co.setStudents(rs.getString("students"));
 				list.add(co);
 			}
 		} catch (SQLException e) {
@@ -352,7 +353,7 @@ public class MemberDAO extends DAO implements AccessMember {
 	}
 
 	// 전번 수정
-	public void updatePhone(Pilates pilates) {
+	public void updatePhone(String phone) {
 		connect();
 		String id = Pilates.getId();
 
@@ -360,7 +361,7 @@ public class MemberDAO extends DAO implements AccessMember {
 		int r = 0;
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, pilates.getPhone());
+			psmt.setString(1, phone);
 			psmt.setString(2, id); // id는 로그인할 때 받아옴!!!!
 			r = psmt.executeUpdate();
 			System.out.println(r + "건이 변경되었습니다.");
@@ -374,7 +375,7 @@ public class MemberDAO extends DAO implements AccessMember {
 	}
 
 	// 비번수정
-	public void updatePw(Pilates pilates) {
+	public void updatePw(String pw) {
 
 		connect();
 		String id = Pilates.getId();
@@ -383,7 +384,7 @@ public class MemberDAO extends DAO implements AccessMember {
 		int r = 0;
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, pilates.getPw());
+			psmt.setString(1, pw);
 			psmt.setString(2, id); // id는 로그인할 때 받아옴!!!!
 			r = psmt.executeUpdate();
 			System.out.println(r + "건이 변경되었습니다.");

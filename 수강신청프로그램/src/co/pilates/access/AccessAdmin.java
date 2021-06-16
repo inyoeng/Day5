@@ -9,8 +9,8 @@ import co.pilates.model.Teacher;
 public interface AccessAdmin {
 	//회원검색
 	public ArrayList<Pilates> memberList();
-	public Pilates searchName(String name);
-	public ArrayList<Pilates> nameContains(Pilates pilates);
+	public ArrayList<Pilates> searchName(String name);
+	public ArrayList<Pilates> nameContains(String word);
 	
 	//회원 등록
 	public void enter(Pilates pilates);

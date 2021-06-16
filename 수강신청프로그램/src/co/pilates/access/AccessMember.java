@@ -13,7 +13,8 @@ public interface AccessMember {
 	
 	//정보 업데이트
 	
-	public void updatePhone(Pilates pilates);
+	public void updatePw(String pw);
+	public void updatePhone(String phone);
 	
 	//search and show
 	public ArrayList<Course> searchAll();
