@@ -103,7 +103,7 @@ public class MemberDAO extends DAO implements AccessMember {
 				co.setLevel(rs.getString("level"));
 				co.setDate(rs.getString("date"));
 				co.setTeacher(rs.getString("teacher"));
-				co.setStudents(rs.getString("students"));
+				
 				list.add(co);
 			}
 		} catch (SQLException e) {
@@ -135,7 +135,6 @@ public class MemberDAO extends DAO implements AccessMember {
 				co.setLevel(rs.getString("level"));
 				co.setDate(rs.getString("date"));
 				co.setTeacher(rs.getString("teacher"));
-				co.setStudents(rs.getString("students"));
 				list.add(co);
 			}
 		} catch (SQLException e) {
@@ -168,7 +167,6 @@ public class MemberDAO extends DAO implements AccessMember {
 				co.setLevel(rs.getString("level"));
 				co.setDate(rs.getString("date"));
 				co.setTeacher(rs.getString("teacher"));
-				co.setStudents(rs.getString("students"));
 				list.add(co);
 			}
 		} catch (SQLException e) {
@@ -201,7 +199,6 @@ public class MemberDAO extends DAO implements AccessMember {
 				co.setLevel(rs.getString("level"));
 				co.setDate(rs.getString("date"));
 				co.setTeacher(rs.getString("teacher"));
-				co.setStudents(rs.getString("students"));
 				list.add(co);
 			}
 		} catch (SQLException e) {
@@ -399,4 +396,5 @@ public class MemberDAO extends DAO implements AccessMember {
 
 	}
 
+	
 }

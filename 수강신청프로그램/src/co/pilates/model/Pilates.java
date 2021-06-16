@@ -89,4 +89,12 @@ public class Pilates {
 
 
 
+
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
 }

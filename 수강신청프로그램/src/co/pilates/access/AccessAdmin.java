@@ -9,7 +9,7 @@ import co.pilates.model.Teacher;
 public interface AccessAdmin {
 	//회원검색
 	public ArrayList<Pilates> memberList();
-	public void searchName(Pilates pilates);
+	public Pilates searchName(String name);
 	public ArrayList<Pilates> nameContains(Pilates pilates);
 	
 	//회원 등록
@@ -28,16 +28,17 @@ public interface AccessAdmin {
 	//강의 등록
 	public void enterCourse(Course course);
 	
+	//강의 삭제
+	public void deleteCourse(String name);
+	
 	
 	//강사 조회
 	public ArrayList<Teacher> teacherList();
-	public void seachTeacher(Teacher teacher);
+	public Teacher seachTeacher(String name);
 	
 	//강사 등록
 	public void inputTeacher(Teacher teacher);
 	
-	//강사 수정
-	public void editTeacher(Teacher teacher);
 	//강사 삭제 
 	public void deleteTeacher(String name);
 

@@ -6,23 +6,25 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import co.pilates.model.Course;
 import co.pilates.model.Pilates;
 import co.pilates.model.Teacher;
 
-public class AdminDAO extends DAO implements AccessAdmin{
-	
+public class AdminDAO extends DAO implements AccessAdmin {
+
 	static PreparedStatement psmt;
 	static ResultSet rs;
 	String sql;
 	static Connection conn;
 
+	Scanner sc = new Scanner(System.in);
+
 	public static void connect() {
 		String url = "jdbc:sqlite:C:/sqlite/db/pilates.db";
 		try {
 			conn = DriverManager.getConnection(url);
-			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -57,82 +59,321 @@ public class AdminDAO extends DAO implements AccessAdmin{
 
 		}
 	}
-	
+
 	@Override
 	public ArrayList<Pilates> memberList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		connect();
+		ArrayList<Pilates> list = new ArrayList<>();
 
-	@Override
-	public void searchName(Pilates pilates) {
-		// TODO Auto-generated method stub
-		
-	}
+		try {
+			psmt = conn.prepareStatement("select * from members");
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				Pilates p = new Pilates();
+				p.setId(rs.getString("id"));
+				p.setPw(rs.getString("pw"));
+				p.setName(rs.getString("name"));
+				p.setPhone(rs.getString("phone"));
+				p.setSession(rs.getInt("sessions"));
+				p.setAge(rs.getInt("age"));
+				list.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
 
-	@Override
-	public ArrayList<Pilates> nameContains(Pilates pilates) {
-		// TODO Auto-generated method stub
-		return null;
+		return list;
 	}
 
 	@Override
 	public void enter(Pilates pilates) {
-		// TODO Auto-generated method stub
+		connect();
+		String sql = "insert into members values (?,?,?,?,?,?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, Pilates.getId());
+			psmt.setString(2, pilates.getPw());
+			psmt.setString(3, Pilates.getName());
+			psmt.setInt(4, pilates.getAge());
+			psmt.setString(5, pilates.getPhone());
+			psmt.setInt(1, Pilates.getSession());
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 입력되었습니다. ");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+
+	}
+
+	@Override
+	public ArrayList<Pilates> nameContains(Pilates pilates) {
+		connect();
+		ArrayList<Pilates> list = new ArrayList<>();
+		System.out.println("찾을 이름을 입력하세요");
+		String word = sc.next();
 		
+
+		try {
+			psmt = conn.prepareStatement("select * from memebers where name like ?");
+			psmt.setString(1, '%' + word + '%');
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				Pilates p = new Pilates();
+				p.setId(rs.getString("id"));
+				p.setPw(rs.getString("pw"));
+				p.setName(rs.getString("name"));
+				p.setAge(rs.getInt("age"));
+				p.setPhone(rs.getString("phone"));
+				p.setSession(rs.getInt("sessions"));
+				list.add(p);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+
+		return list;
+	}
+
+	@Override
+	public Pilates searchName(String name) {
+		connect();
+		String sql = "select * from members where name = ?";
+		Pilates p = null;
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, name);
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				p = new Pilates();
+				p.setId(rs.getString("id"));
+				p.setPw(rs.getString("pw"));
+				p.setName(rs.getString("name"));
+				p.setAge(rs.getInt("age"));
+				p.setPhone(rs.getString("phone"));
+				p.setSession(rs.getInt("sessions"));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return p;
 	}
 
 	@Override
 	public void updateSession(Pilates pilates) {
-		// TODO Auto-generated method stub
+		connect();
+		String sql = "update members set sessions = ? where id = ?";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, Pilates.getSession());
+			psmt.setString(2, Pilates.getId());
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 변경되었습니다. ");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close();
+		}
 		
 	}
 
 	@Override
 	public void delete(String name) {
-		// TODO Auto-generated method stub
+		connect();
+		String sql = "delete from members where name = ?";
 		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, name);
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 삭제되었습니다.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
 	}
 
 	@Override
 	public ArrayList<Course> courseList() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Course> list = new ArrayList<>();
+		connect();
+		
+		String sql = "select * from course";
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				Course c =  new Course();
+				c.setCourse(rs.getString("course"));
+				c.setLevel(rs.getString("level"));
+				c.setTeacher(rs.getString("teacher"));
+				c.setDate(rs.getString("date"));
+				list.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		
+		return list;
 	}
 
 	@Override
 	public void enterCourse(Course course) {
-		// TODO Auto-generated method stub
+		connect();
+		String sql = "insert into course values (?,?,?,?)";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, course.getCourse());
+			psmt.setString(2, course.getLevel());
+			psmt.setString(3, course.getDate());
+			psmt.setString(4, course.getTeacher());
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 입력되었습니다.");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
 		
 	}
 
 	@Override
 	public ArrayList<Teacher> teacherList() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Teacher> list = new ArrayList<>();
+		connect();
+		
+		try {
+			psmt = conn.prepareStatement("select * from Teacher");
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				Teacher t = new Teacher();
+				t.setName(rs.getString("name"));
+				t.setAge(rs.getInt("age"));
+				t.setExperience(rs.getString("experience"));
+				t.setSpeciality(rs.getString("speciality"));
+				t.setPhone(rs.getString("phone"));
+				list.add(t);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		return list;
 	}
 
 	@Override
-	public void seachTeacher(Teacher teacher) {
-		// TODO Auto-generated method stub
-		
+	public Teacher seachTeacher(String name) {
+		connect();
+		String sql = "select * from teacher where name = ?";
+		Teacher t = null;
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, name);
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				t= new Teacher();
+				t.setName(rs.getString("name"));
+				t.setAge(rs.getInt("age"));
+				t.setExperience(rs.getString("experience"));
+				t.setSpeciality(rs.getString("speciality"));
+				t.setPhone(rs.getString("phone"));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return t;
 	}
 
 	@Override
 	public void inputTeacher(Teacher teacher) {
-		// TODO Auto-generated method stub
+		connect();
+		String sql = "insert into teacher values (?,?,?,?,?)";
 		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, teacher.getName());
+			psmt.setInt(2, teacher.getAge());
+			psmt.setString(3, teacher.getExperience());
+			psmt.setString(4, teacher.getSpeciality());
+			psmt.setString(5, teacher.getPhone());
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 입력되었습니다.");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
 	}
 
-	@Override
-	public void editTeacher(Teacher teacher) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void deleteTeacher(String name) {
-		// TODO Auto-generated method stub
+		connect();
+		String sql = "delete from teacher where name =?";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, name);
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 삭제되었습니다.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+	}
+	
+	public void deleteCourse(String name) {
+		connect();
+		String sql = "delete from course where name =?";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, name);
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 삭제되었습니다.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
 		
 	}
 
