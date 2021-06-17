@@ -18,11 +18,19 @@ public class AppMain {
 		LoginAccess lo = new LoginDAO();
 		AccessMember am = new MemberDAO();
 		AdminCliApp ad = new AdminCliApp();
+		System.out.println("");
+		System.out.println("*･゜ﾟ･*:.｡..｡.:*･'(*ﾟ▽ﾟ*)'･*:.｡. .｡.:*･゜ﾟ･*");
+		System.out.println("");
+		System.out.println("            필라테스 예담      ");
+		System.out.println("");
+		System.out.println("*･゜ﾟ･*:.｡..｡.:*･'(*ﾟ▽ﾟ*)'･*:.｡. .｡.:*･゜ﾟ･*");
+		System.out.println("");
+		System.out.println("");
 
 		// 1. 관리자로 로그인할래? y/n
-		System.out.println("----로그인 하시겠습니까?----");
-		System.out.println("1.관리자 모드 2. 회원 로그인");
-		System.out.println("------------------------");
+		System.out.println("---- 로그인 하시겠습니까?（╹◡╹）----");
+		System.out.println("    1.관리자 모드 2. 회원 로그인");
+		System.out.println("------------------------------");
 		Scanner sc = new Scanner(System.in);
 		int f = sc.nextInt();
 
@@ -32,16 +40,17 @@ public class AppMain {
 			// 비밀번호는 1234
 
 			while (true) {
-				//String pw = "1234!!";
-				System.out.println("비밀번호를 입력하세요");
+				// String pw = "1234!!";
+				System.out.println("비밀번호를 입력하세요 （╹◡╹）");
 				int password = sc.nextInt();
 				if (password == 1234) {
-					System.out.println("---로그인 성공!---");
+					System.out.println("---   로그인 성공!   ---");
 					ad.start();
 					break;
 				} else {
-					System.out.println("==!!!!!!!!==");
-					System.out.println("다시 입력하세요");
+					System.out.println("==    !!!!!!!!   ==");
+					System.out.println("다시 입력하세요 (´∀｀*)");
+					System.out.println("");
 				}
 
 			}
@@ -49,29 +58,35 @@ public class AppMain {
 		}
 		// 3. n -> pilatescli 가서 로그인
 		else if (f == 2) {
-			System.out.println("회원 로그인");
-			System.out.println("id입력 >> ");
-			String id = sc.next();
+			while (true) {
+				System.out.println("회원 로그인");
+				System.out.println("id입력 >> ");
+				String id = sc.next();
 
-			if (lo.checkID(id) == true) {
-				System.out.println("비밀번호 입력 >> ");
-				String pw = sc.next();
+				if (lo.checkID(id) == true) {
+					System.out.println("비밀번호 입력 >> ");
+					String pw = sc.next();
 
-				// 비번 맞으면 로그인
-				if (lo.checkpw(pw) == true) {
-					// 로그인 정보 저장!
-					Pilates pl = am.logIn(id, pw);
-					// 4. 로그인 정보가 맞으면 start!
-					PilatesCliApp pApp = new PilatesCliApp(pl);
-					pApp.start();
+					// 비번 맞으면 로그인
+					if (lo.checkpw(pw) == true) {
+						// 로그인 정보 저장!
+						Pilates pl = am.logIn(id, pw);
+						// 4. 로그인 정보가 맞으면 start!
+						PilatesCliApp pApp = new PilatesCliApp(pl);
+						pApp.start();
+					} else {
+						System.out.println("");
+						System.out.println("wrong pw Σ（・□・；）");
+						System.out.println("");
+					}
 				} else {
-					System.out.println("wrong pw");
+					System.out.println("");
+					System.out.println("wrong id (´∀｀*)");
+					System.out.println("");
 				}
-			} else {
-				System.out.println("wrong id");
 			}
-
 		}
-		System.out.println("Bye!");
+		System.out.println("");
+		System.out.println("Bye!  ヾ(๑╹◡╹)ﾉ\"");
 	}
 }

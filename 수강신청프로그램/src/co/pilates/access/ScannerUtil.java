@@ -100,15 +100,17 @@ public class ScannerUtil {
 		public static Course readCourse() {
 			while(true) {
 				System.out.println("== 과정 등록을 시작합니다. ==");
-				System.out.println("코스명, 레벨, 날짜, 강사명 입력 >> ");
+				System.out.println("번호,코스명, 레벨, 날짜, 강사명 입력 >> ");
 				String result = sc.next();
 				String [] arr = result.split(",");
 				
 				Course c = new Course();
-				c.setCourse(arr[0]);
-				c.setLevel(arr[1]);
-				c.setDate(arr[2]);
-				c.setTeacher(arr[3]);
+				int no = Integer.parseInt(arr[0]);
+				c.setNo(no);
+				c.setCourse(arr[1]);
+				c.setLevel(arr[2]);
+				c.setDate(arr[3]);
+				c.setTeacher(arr[4]);
 				
 				return c;
 			}

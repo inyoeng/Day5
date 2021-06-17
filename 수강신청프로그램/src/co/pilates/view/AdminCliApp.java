@@ -29,7 +29,6 @@ public class AdminCliApp {
 			case 1:
 				memberManage();
 				break;
-		
 			case 2:
 				courseManage();
 				break;
@@ -111,8 +110,9 @@ public class AdminCliApp {
 
 
 	private void deleteCourse() {
-		String name = sc.next();
-		adm.deleteCourse(name);
+		System.out.println("삭제할 코스의 번호를 입력하세요");
+		int num = sc.nextInt();
+		adm.deleteCourse(num);
 	}
 
 
@@ -185,7 +185,7 @@ public class AdminCliApp {
 
 	private void searchName() {
 		//동명이인이 있을 수 있으니까~~
-		System.out.println("찾을 이름을 입력하세요 >>");
+		System.out.println("찾을 회원의 이름을 입력하세요 >>");
 		String name = sc.next();
 		ArrayList<Pilates> list = adm.searchName(name);
 		for (Pilates p : list) {

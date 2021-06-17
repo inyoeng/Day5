@@ -4,6 +4,7 @@ public class Course {
 	
 	
 	//강의 관리
+	int no;
 	String course;
 	String level;
 	String date;
@@ -14,13 +15,24 @@ public class Course {
 	
 
 
+
+
+
 	@Override
 	public String toString() {
-		return "Course [course=" + course + ", level=" + level + ", date=" + date + ", teacher=" + teacher
-				+  "]";
+		return "Course [no=" + no + ", course=" + course + ", level=" + level + ", date=" + date + ", teacher="
+				+ teacher + "]";
 	}
 
 
+	public int getNo() {
+		return no;
+	}
+
+
+	public void setNo(int no) {
+		this.no = no;
+	}
 
 
 	public String getCourse() {

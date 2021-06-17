@@ -29,7 +29,7 @@ public interface AccessAdmin {
 	public void enterCourse(Course course);
 	
 	//강의 삭제
-	public void deleteCourse(String name);
+	public void deleteCourse(int num);
 	
 	
 	//강사 조회

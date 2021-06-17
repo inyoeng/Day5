@@ -67,7 +67,7 @@ public class PilatesCliApp {
 	private void history() {
 
 		System.out.println("----------  수강신청 내역  ----------");
-		List<Course> list = mem.history();
+		List<Course> list = mem.history(pilates);
 		for (Course c : list) {
 			System.out.println(c.toString());
 		}
@@ -85,21 +85,22 @@ public class PilatesCliApp {
 		while (true) {
 			if (num == 1) {
 				// 나이수정
+				System.out.println("바꿀 나이를 입력하세요! ");
 				int newAge = sc.nextInt();
 				pilates.setAge(newAge);
 				MemberDAO.updateAge(pilates);
 				break;
 			} else if (num == 2) {
 				// 번호수정
-				System.out.println("바꿀 번호를 입력하세요!");
+				System.out.println("바꿀 번호를 입력하세요! ");
 				String phone = sc.next();
-				mem.updatePhone(phone);
+				mem.updatePhone(phone, pilates);
 				break;
 			} else if (num == 3) {
 				// 비밀번호 수정
 				System.out.println("바꿀 비밀번호를 입력하세요!");
 				String pw = sc.next();
-				mem.updatePw(pw);
+				mem.updatePw(pw, pilates);
 				break;
 			} else {
 				System.out.println("다시 입력하세요!!");
@@ -163,7 +164,10 @@ public class PilatesCliApp {
 
 		if (num == 1) {
 
-			mem.enroll(no);
+			mem.enroll(no, pilates);
+			System.out.println("");
+			System.out.println(" 열심히 운동하세요!!!");
+			System.out.println("＼＼\\\\٩( 'ω' )و //／／");
 
 		} else {
 			System.out.println("수강신청 취소...");

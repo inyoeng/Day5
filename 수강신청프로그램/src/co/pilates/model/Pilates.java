@@ -33,7 +33,7 @@ public class Pilates {
 		this.pw = pw;
 	}
 
-	public  String getName() {
+	public String getName() {
 		return name;
 	}
 
@@ -57,7 +57,7 @@ public class Pilates {
 		this.phone = phone;
 	}
 
-	public  int getSession() {
+	public int getSession() {
 		return session;
 	}
 
@@ -65,9 +65,5 @@ public class Pilates {
 		this.session = session;
 	}
 
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

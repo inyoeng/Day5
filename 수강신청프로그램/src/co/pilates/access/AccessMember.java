@@ -13,8 +13,8 @@ public interface AccessMember {
 	
 	//정보 업데이트
 	
-	public void updatePw(String pw);
-	public void updatePhone(String phone);
+	public void updatePw(String pw,Pilates p);
+	public void updatePhone(String phone,Pilates p);
 	
 	//search and show
 	public ArrayList<Course> searchAll();
@@ -26,10 +26,10 @@ public interface AccessMember {
 	public ArrayList<Teacher> teacherInfo();
 	
 	//수강신청 : course db student에 이름 추가하기.
-	public void enroll(int no);
+	public void enroll(int no,Pilates p);
 	
 	//수강신청 내역 조회
-	public ArrayList<Course> history();
+	public ArrayList<Course> history(Pilates p);
 
 	
 }
